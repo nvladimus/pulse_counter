@@ -4,7 +4,7 @@
 // tested on Teensy 2.0, should work on Arduino, too.
 // Nikita Vladimirov, 2019.
 
-const byte interruptPin = 5;
+const byte interruptPin = 7; // Teensy 2.0, interrupt pins are: 5, 6, 7, 8.
 const byte ledPin = 11;
 volatile int counter = 0;
 volatile int counter_old = 0;
