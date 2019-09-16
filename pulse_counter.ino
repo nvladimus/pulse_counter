@@ -1,6 +1,5 @@
 // This code counts rising edges of an input trigger (from camera or stage) 
 // The input should be connected to Arduino's digital pin capable of Interrupt mode.
-// The program switches analog output voltage setting after every N trigger pulses
 // tested on Teensy 2.0, should work on Arduino, too.
 // Nikita Vladimirov, 2019.
 
