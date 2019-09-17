@@ -1,6 +1,7 @@
 // This code counts rising edges of an input trigger (from camera or stage) and 
 // switches analog output voltage setting after every N trigger pulses.
-// In this version, analog output is unipolar (0..5V), by using external DAC chip MCP4725 wired to Teensy via I2C. 
+// In this version, analog output is bipolar (-5..5V), by using DAC chip MCP4725, voltage inverter ICL7660S and opAmp UA741. 
+// see /wiring_fritzing folder for detals.
 // tested on Teensy 2.0, should work on Arduino, too.
 // Default speed of Arduino Wire library is 100KHz. The Adafruit MCP4725 library can run at speed 400KHz by setting the TWBR = 12;
 // Nikita Vladimirov, 2019.
@@ -8,6 +9,7 @@
 #include <Adafruit_MCP4725.h>
 
 const float VCC = 5.0; // power supply voltage. Can be 3.3V as well.
+const float opAmp_gain = 2.0; // multiplication factor of the opAmp, equal to 1 + R1/R2, where R1, R2 are resistor values.
 const byte interruptPin = 7; // Teensy 2.0, interrupt pins are: 5, 6, 7, 8. This digital pin must be capable of Interrupt mode.
 const byte ledPin = 11; // blink every time a pulse is detected
 
@@ -15,7 +17,7 @@ volatile int counter;
 volatile int counter_old;
 volatile byte ledState;
 Adafruit_MCP4725 dac; // constructor
-const float voltage_out_0 = 0.5;
+const float voltage_out_0 = -1.5;
 const float voltage_out_1 = 4.5;
 const int n_pulses_switch_period = 10; // DAC output will alternate between voltage_out_0 and voltage_out_1 with this period
 uint16_t dac_value; 
@@ -56,7 +58,9 @@ void count() {
   ledState = !ledState;
 }
 
-uint16_t volts2dac_value(float volts){
-  return(int(volts / VCC * 4095.0));
+uint16_t volts2dac_value(float volts_out){
+  // return(int(volts_out / VCC * 4095.0)); //unipolar case, no amplifier
+  v_dac = (volts_out + VCC) / opAmp_gain;
+  return(int(v_dac / VCC * 4095.0));
 }
 
