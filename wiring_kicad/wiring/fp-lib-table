@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name digikey-footprints)(type KiCad)(uri C:/Users/nvladim/Documents/Nikita-MDC/MakerSpace/Electronics/KiCAD_libraries/digikey-kicad-library-master/digikey-footprints.pretty)(options "")(descr ""))
+  (lib (name teensy_footprints)(type KiCad)(uri C:/Users/nvladim/Documents/Nikita-MDC/MakerSpace/Electronics/KiCAD_libraries/teensy_footprints.pretty)(options "")(descr ""))
+  (lib (name my_components)(type KiCad)(uri C:/Users/nvladim/Documents/Nikita-MDC/MakerSpace/Electronics/KiCAD_libraries/my_components)(options "")(descr ""))
+)

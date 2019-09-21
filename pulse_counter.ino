@@ -8,7 +8,7 @@
 #include <Wire.h>
 #include <Adafruit_MCP4725.h>
 
-const float VCC = 5.0; // power supply voltage. Can be 3.3V as well.
+const float VCC = 5.04; // power supply voltage. Better to measure it directly on the circuit.
 const float opAmp_gain = 2.0; // multiplication factor of the opAmp, equal to 1 + R1/R2, where R1, R2 are resistor values.
 const byte interruptPin = 7; // Teensy 2.0, interrupt pins are: 5, 6, 7, 8. This digital pin must be capable of Interrupt mode.
 const byte ledPin = 11; // blink every time a pulse is detected
@@ -17,8 +17,8 @@ volatile int counter;
 volatile int counter_old;
 volatile byte ledState;
 Adafruit_MCP4725 dac; // constructor
-const float voltage_out_0 = -1.5;
-const float voltage_out_1 = 4.5;
+const float voltage_out_0 = -0.5;
+const float voltage_out_1 = 0.5;
 const int n_pulses_switch_period = 10; // DAC output will alternate between voltage_out_0 and voltage_out_1 with this period
 uint16_t dac_value; 
 uint16_t dac_value_0; 
@@ -60,6 +60,7 @@ void count() {
 
 uint16_t volts2dac_value(float volts_out){
   // return(int(volts_out / VCC * 4095.0)); //unipolar case, no amplifier
+  float v_dac;
   v_dac = (volts_out + VCC) / opAmp_gain;
   return(int(v_dac / VCC * 4095.0));
 }
