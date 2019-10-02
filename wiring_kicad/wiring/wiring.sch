@@ -6,10 +6,10 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Adding triggered DC bias to input signal"
-Date "2019-09-20"
-Rev ""
+Date "2019-10-01"
+Rev "0.2"
 Comp "Nikita"
-Comment1 ""
+Comment1 "Without bypass switch"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -50,12 +50,12 @@ $EndComp
 $Comp
 L Connector:Conn_Coaxial J2
 U 1 1 5D854101
-P 6500 1850
-F 0 "J2" H 6600 1825 50  0000 L CNN
-F 1 "Galvo signal IN" H 6700 1750 50  0000 L CNN
-F 2 "my_components:BNC_female_jack_TE_1-1634505-0" H 6500 1850 50  0001 C CNN
-F 3 " ~" H 6500 1850 50  0001 C CNN
-	1    6500 1850
+P 6800 1950
+F 0 "J2" H 6900 1925 50  0000 L CNN
+F 1 "Galvo signal IN" H 7000 1850 50  0000 L CNN
+F 2 "my_components:BNC_female_jack_TE_1-1634505-0" H 6800 1950 50  0001 C CNN
+F 3 " ~" H 6800 1950 50  0001 C CNN
+	1    6800 1950
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -398,8 +398,6 @@ Wire Wire Line
 Wire Wire Line
 	8100 3500 8100 4600
 Wire Wire Line
-	6700 1850 6800 1850
-Wire Wire Line
 	7650 1950 7650 2750
 Wire Wire Line
 	7650 2750 7650 3400
@@ -420,12 +418,12 @@ $EndComp
 $Comp
 L power:GND #PWR0114
 U 1 1 5D8AB97D
-P 6500 1400
-F 0 "#PWR0114" H 6500 1150 50  0001 C CNN
-F 1 "GND" V 6505 1272 50  0000 R CNN
-F 2 "" H 6500 1400 50  0001 C CNN
-F 3 "" H 6500 1400 50  0001 C CNN
-	1    6500 1400
+P 6800 1500
+F 0 "#PWR0114" H 6800 1250 50  0001 C CNN
+F 1 "GND" V 6805 1372 50  0000 R CNN
+F 2 "" H 6800 1500 50  0001 C CNN
+F 3 "" H 6800 1500 50  0001 C CNN
+	1    6800 1500
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -524,41 +522,9 @@ F 3 "" H 1300 3000 50  0001 C CNN
 	1    1300 3000
 	1    0    0    -1  
 $EndComp
-$Comp
-L dk_Toggle-Switches:ATE1D-2M3-10-Z S1
-U 1 1 5D867143
-P 7000 1850
-F 0 "S1" H 7000 2131 50  0000 C CNN
-F 1 "\"Bypass everything\" switch" H 7300 2050 50  0000 C CNN
-F 2 "digikey-footprints:Toggle_Switch_100SP1T1B4M2QE" H 7200 2050 50  0001 L CNN
-F 3 "https://www.nidec-copal-electronics.com/e/catalog/switch/ate.pdf" H 7200 2150 60  0001 L CNN
-F 4 "563-1157-ND" H 7200 2250 60  0001 L CNN "Digi-Key_PN"
-F 5 "ATE1D-2M3-10-Z" H 7200 2350 60  0001 L CNN "MPN"
-F 6 "Switches" H 7200 2450 60  0001 L CNN "Category"
-F 7 "Toggle Switches" H 7200 2550 60  0001 L CNN "Family"
-F 8 "https://www.nidec-copal-electronics.com/e/catalog/switch/ate.pdf" H 7200 2650 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/nidec-copal-electronics/ATE1D-2M3-10-Z/563-1157-ND/1792018" H 7200 2750 60  0001 L CNN "DK_Detail_Page"
-F 10 "SWITCH TOGGLE SPDT 50MA 48V" H 7200 2850 60  0001 L CNN "Description"
-F 11 "Nidec Copal Electronics" H 7200 2950 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 7200 3050 60  0001 L CNN "Status"
-	1    7000 1850
-	1    0    0    -1  
-$EndComp
-Connection ~ 6800 1850
-Wire Wire Line
-	6800 1850 6900 1850
-Wire Wire Line
-	7200 1950 7350 1950
-Wire Wire Line
-	10100 1700 10100 1750
 Connection ~ 10100 2200
 Wire Wire Line
-	7200 1750 10100 1750
-Connection ~ 10100 1750
-Wire Wire Line
-	10100 1750 10100 2200
-Wire Wire Line
-	6500 1400 6500 1650
+	6800 1500 6800 1750
 Connection ~ 6450 3450
 Wire Wire Line
 	6450 3450 6750 3450
@@ -683,4 +649,8 @@ F 3 "" H 2650 4100 50  0001 C CNN
 	1    2650 4100
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	10100 1700 10100 2200
+Wire Wire Line
+	7000 1950 7350 1950
 $EndSCHEMATC

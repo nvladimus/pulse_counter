@@ -8,7 +8,7 @@
 #include <Wire.h>
 #include <Adafruit_MCP4725.h>
 
-const float VCC = 5.04; // power supply voltage. Better to measure it directly on the circuit.
+const float VCC = 5.0; // power supply voltage. Don't use USB power, it's noisy and can be < 5V.
 const float opAmp_gain = 2.0; // multiplication factor of the opAmp, equal to 1 + R1/R2, where R1, R2 are resistor values.
 const byte interruptPin = 7; // Teensy 2.0, interrupt pins are: 5, 6, 7, 8. This digital pin must be capable of Interrupt mode.
 const byte ledPin = 11; // blink every time a pulse is detected
@@ -17,16 +17,18 @@ volatile int counter;
 volatile int counter_old;
 volatile byte ledState;
 Adafruit_MCP4725 dac; // constructor
-const float voltage_out_0 = -0.5;
-const float voltage_out_1 = 0.5;
-const int n_pulses_switch_period = 10; // DAC output will alternate between voltage_out_0 and voltage_out_1 with this period
+float voltage_out_0 = -0.42;
+float voltage_out_1 = 0.35;
+int n_pulses_switch_period = 10; // DAC output will alternate between voltage_out_0 and voltage_out_1 with this period
 uint16_t dac_value; 
 uint16_t dac_value_0; 
 uint16_t dac_value_1; 
-
+  
 void setup() {
   Serial.begin(9600);
+  Serial.println("Counter started");
   pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, HIGH);
   ledState = LOW;
   
   pinMode(interruptPin, INPUT_PULLUP);
@@ -51,6 +53,7 @@ void loop() {
     }
   }
   dac.setVoltage(dac_value, false); // this command should always run as fast as possible, since it doesn't hold the value.
+  readCommand();
 }
 
 void count() {
@@ -63,5 +66,67 @@ uint16_t volts2dac_value(float volts_out){
   float v_dac;
   v_dac = (volts_out + VCC) / opAmp_gain;
   return(int(v_dac / VCC * 4095.0));
+}
+
+void readCommand() {
+    boolean newCommandReceived = false;
+    char receivedChars[16];
+    char rc;
+    byte ic = 0;
+    while (Serial.available() > 0  && newCommandReceived == false)
+    {
+      rc = Serial.read();
+      receivedChars[ic] = rc;
+      ic++;
+      delay(2);  //slow looping to allow buffer to fill with next character
+      if(rc == '\n' || rc == '\r'){
+        newCommandReceived = true;
+        receivedChars[ic] = '\0';
+      }
+    }
+    if(newCommandReceived){
+      parseCommand(receivedChars);
+    }
+}
+
+void parseCommand(char receivedChars[]){
+  char *keywordString;
+  char *token;
+  
+  keywordString = strstr(receivedChars, "n ");
+  if (keywordString != NULL){ // set the switching period
+    token = strtok(keywordString," "); //chop the keyword
+    token = strtok(NULL, "\n"); //get the number
+    n_pulses_switch_period = atoi(token);
+    Serial.println(n_pulses_switch_period);
+  }
+  
+  keywordString = strstr(receivedChars, "?n");
+  if (keywordString != NULL){
+    Serial.println(n_pulses_switch_period);
+  }
+
+  keywordString = strstr(receivedChars, "reset");
+  if (keywordString != NULL){
+    counter = 0;
+    counter_old = 0;
+    Serial.println(counter);
+  }
+  
+  keywordString = strstr(receivedChars, "v0 ");
+  if (keywordString != NULL){
+    token = strtok(keywordString," "); //chop the keyword
+    token = strtok(NULL, "\n"); //get the number
+    voltage_out_0 = atof(token);
+    Serial.println(voltage_out_0);
+  }
+
+  keywordString = strstr(receivedChars, "v1 ");
+  if (keywordString != NULL){
+    token = strtok(keywordString," "); //chop the keyword
+    token = strtok(NULL, "\n"); //get the number
+    voltage_out_1 = atof(token);
+    Serial.println(voltage_out_1);
+  }
 }
 

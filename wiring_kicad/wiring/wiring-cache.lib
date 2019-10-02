@@ -190,33 +190,6 @@ X OUT 3 300 0 100 L 50 50 1 1 w
 ENDDRAW
 ENDDEF
 #
-# dk_Toggle-Switches_ATE1D-2M3-10-Z
-#
-DEF dk_Toggle-Switches_ATE1D-2M3-10-Z S 0 0 Y N 1 F N
-F0 "S" -130 115 50 H V C CNN
-F1 "dk_Toggle-Switches_ATE1D-2M3-10-Z" 5 -210 50 H V C CNN
-F2 "digikey-footprints:Switch_Toggle_ATE1D-2M3-10-Z" 200 200 50 H I L CNN
-F3 "https://www.nidec-copal-electronics.com/e/catalog/switch/ate.pdf" 200 300 60 H I L CNN
-F4 "563-1157-ND" 200 400 60 H I L CNN "Digi-Key_PN"
-F5 "ATE1D-2M3-10-Z" 200 500 60 H I L CNN "MPN"
-F6 "Switches" 200 600 60 H I L CNN "Category"
-F7 "Toggle Switches" 200 700 60 H I L CNN "Family"
-F8 "https://www.nidec-copal-electronics.com/e/catalog/switch/ate.pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
-F9 "/product-detail/en/nidec-copal-electronics/ATE1D-2M3-10-Z/563-1157-ND/1792018" 200 900 60 H I L CNN "DK_Detail_Page"
-F10 "SWITCH TOGGLE SPDT 50MA 48V" 200 1000 60 H I L CNN "Description"
-F11 "Nidec Copal Electronics" 200 1100 60 H I L CNN "Manufacturer"
-F12 "Active" 200 1200 60 H I L CNN "Status"
-DRAW
-C -85 0 16 0 1 0 F
-C 85 -100 15 0 1 0 F
-C 85 100 15 0 1 0 F
-P 2 0 1 0 105 90 -70 0 N
-X ~ 1 200 100 100 L 50 50 1 1 P
-X Com 2 -200 0 100 R 50 50 1 1 P
-X ~ 3 200 -100 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # my_library_MCP4725_bkt
 #
 DEF my_library_MCP4725_bkt U 0 40 Y Y 1 F N

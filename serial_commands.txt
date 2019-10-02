@@ -1,0 +1,7 @@
+Serial commands for communication with this Arduino/Teensy board:
+default baud rate 9600
+n 10 #set switching period to 10 trigger pulses (image planes)
+?n #read the switching period
+reset #reset the counter
+v0 -0.45 #set voltage0 bias
+v1 0.32 #set voltage1 bias.
