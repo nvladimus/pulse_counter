@@ -110,6 +110,7 @@ void parseCommand(char receivedChars[]){
   if (keywordString != NULL){
     counter = 0;
     counter_old = 0;
+    dac_value = dac_value_0;
     Serial.println(counter);
   }
   
