@@ -119,6 +119,7 @@ void parseCommand(char receivedChars[]){
     token = strtok(keywordString," "); //chop the keyword
     token = strtok(NULL, "\n"); //get the number
     voltage_out_0 = atof(token);
+    dac_value_0 = volts2dac_value(voltage_out_0);
     Serial.println(voltage_out_0);
   }
 
@@ -127,6 +128,7 @@ void parseCommand(char receivedChars[]){
     token = strtok(keywordString," "); //chop the keyword
     token = strtok(NULL, "\n"); //get the number
     voltage_out_1 = atof(token);
+    dac_value_1 = volts2dac_value(voltage_out_1);
     Serial.println(voltage_out_1);
   }
 }
