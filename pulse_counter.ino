@@ -12,6 +12,7 @@ const float VCC = 5.0; // power supply voltage. Don't use USB power, it's noisy 
 const float opAmp_gain = 2.0; // multiplication factor of the opAmp, equal to 1 + R1/R2, where R1, R2 are resistor values.
 const byte interruptPin = 7; // Teensy 2.0, interrupt pins are: 5, 6, 7, 8. This digital pin must be capable of Interrupt mode.
 const byte ledPin = 11; // blink every time a pulse is detected
+const char _version[16] = "2019.11.01";
 
 volatile int counter;
 volatile int counter_old;
@@ -26,7 +27,6 @@ uint16_t dac_value_1;
   
 void setup() {
   Serial.begin(9600);
-  Serial.println("Counter started");
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, HIGH);
   ledState = LOW;
@@ -106,6 +106,11 @@ void parseCommand(char receivedChars[]){
     Serial.println(n_pulses_switch_period);
   }
 
+  keywordString = strstr(receivedChars, "?ver");
+  if (keywordString != NULL){
+    Serial.println(_version);
+  }
+  
   keywordString = strstr(receivedChars, "reset");
   if (keywordString != NULL){
     counter = 0;
